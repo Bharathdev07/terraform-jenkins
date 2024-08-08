@@ -168,7 +168,7 @@ connection {
         type        = "ssh"
         host        = self.private_ip
         user        = "ubuntu"
-        private_key = file("C:/Users/lbhar/Downloads/new.pem")
+        private_key = file("/home/ubuntu/new.pem")
         timeout     = "4m"
     }
 
@@ -196,7 +196,7 @@ connection {
         type        = "ssh"
         host        = self.private_ip
         user        = "ubuntu"
-        private_key = file("C:/Users/lbhar/Downloads/new.pem")
+        private_key = file("/home/ubuntu/new.pem")
         timeout     = "4m"
     }
 
