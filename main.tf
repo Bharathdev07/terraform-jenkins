@@ -15,7 +15,7 @@ resource "aws_subnet" "public_1" {
   availability_zone = var.az-1
   map_public_ip_on_launch = true
   tags = {
-    Name = "var.pub-sub-1"
+    Name = var.pub-sub-1
   }
 }
 resource "aws_subnet" "public_2" {
@@ -24,7 +24,7 @@ resource "aws_subnet" "public_2" {
   availability_zone = var.az-2
   map_public_ip_on_launch = true
   tags = {
-    Name = "var.pub-sub-2"
+    Name = var.pub-sub-2
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_subnet" "private_1" {
   cidr_block        = var.cidr-3
   availability_zone = var.az-2
   tags = {
-    Name = "var.pri-sub-1"
+    Name = var.pri-sub-1
   }
 }
 resource "aws_subnet" "private_2" {
@@ -42,7 +42,7 @@ resource "aws_subnet" "private_2" {
   cidr_block        = var.cidr-4
   availability_zone = var.az-3
   tags = {
-    Name = "var.pri-sub-2"
+    Name = var.pri-sub-2
   }
 }
 
@@ -50,7 +50,7 @@ resource "aws_subnet" "private_2" {
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
   tags = {
-    Name = "var.ig-gate"
+    Name = var.ig-gate
   }
 }
 
@@ -64,7 +64,7 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-    Name = "var.pub-route"
+    Name = var.pub-route
   }
 }
 resource "aws_route_table_association" "public_1" {
@@ -80,7 +80,8 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
   route {
-
+cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat_gw.id
   }
 
   tags = {
@@ -147,7 +148,7 @@ ami=var.ami
 instance_type=var.insta
 key_name=var.key
 subnet_id=aws_subnet.public_1.id
-security_groups = [aws_security_group.instance_sg.name]
+vpc_security_group_ids  = [aws_security_group.instance_sg.name]
 associate_public_ip_address = true
 tags={
     name="dev"
@@ -159,7 +160,7 @@ ami=var.ami
 instance_type=var.insta
 key_name=var.key
 subnet_id     = aws_subnet.private_1.id
-security_groups = [aws_security_group.instance_sg.name]
+vpc_security_group_ids  = [aws_security_group.instance_sg.name]
 associate_public_ip_address = false
 tags={
     name="producion"
