@@ -1,3 +1,3 @@
 provider "aws" {
-region="aps-south-1"
+region="ap-south-1"
 }
