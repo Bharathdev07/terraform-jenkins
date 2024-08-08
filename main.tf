@@ -115,7 +115,7 @@ resource "aws_route" "internet_route" {
     destination_cidr_block = "0.0.0.0/0"
     nat_gateway_id         = aws_nat_gateway.nat_gw.id
 }
-resource "aws_security_group" "instance_sg" {
+resource "aws_security_group" "web" {
   vpc_id = aws_vpc.main.id
 
   ingress {
@@ -160,7 +160,7 @@ ami=var.ami
 instance_type=var.insta
 key_name=var.key
 subnet_id     = aws_subnet.private_1.id
-vpc_security_group_ids  = [aws_security_group.instance_sg.name]
+vpc_security_group_ids = [aws_security_group.web.id]
 associate_public_ip_address = false
 tags={
     name="producion"
@@ -188,7 +188,7 @@ ami=var.ami
 instance_type=var.insta
 key_name=var.key
 subnet_id     = aws_subnet.private_2.id
-security_groups = [aws_security_group.instance_sg.name]
+vpc_security_group_ids = [aws_security_group.web.id]
 associate_public_ip_address = false
 tags={
     name="production"
