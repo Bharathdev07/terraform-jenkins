@@ -1,6 +1,6 @@
 ami="ami-0ad21ae1d0696ad58"
 insta="t2.micro"
-key="new.pem"
+key="new"
 range="10.0.0.0/16"
 vpc="tf-vpc"
 ig-gate="tf-gate"
